@@ -1,0 +1,19 @@
+button, a {
+    transition: all 0.3s ease-in-out;
+  }
+  
+
+  @media (max-width: 640px) {
+    .min-h-screen {
+      padding: 6px;
+    }
+  
+    .flex-wrap {
+      justify-content: center !important;
+    }
+  
+    .bg-gray-50 {
+      padding: 1rem 0.5rem;
+    }
+  }
+  

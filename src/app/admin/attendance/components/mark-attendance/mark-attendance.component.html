@@ -1,0 +1,39 @@
+<div class="container mx-auto">
+  <h1 class="text-xl font-bold mb-4">Mark Attendance</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label for="status" class="block font-medium">Status</label>
+      <select
+        [(ngModel)]="attendance.status"
+        name="status"
+        id="status"
+        required
+        class="block w-full p-2 border rounded"
+      >
+        <option value="" disabled selected>Select Status</option>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Leave">Leave</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="employeeId" class="block font-medium">Employee ID</label>
+      <input
+        type="text"
+        [(ngModel)]="attendance.employeeId"
+        name="employeeId"
+        id="employeeId"
+        required
+        class="block w-full p-2 border rounded"
+      />
+    </div>
+    <div>
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+      >
+        Mark Attendance
+      </button>
+    </div>
+  </form>
+</div>

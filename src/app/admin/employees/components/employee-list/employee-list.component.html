@@ -1,0 +1,130 @@
+<div class="container mx-auto px-4 py-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Employees</h1>
+    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md shadow-md transition" 
+      (click)="openEmployeeForm()">
+      + Add Employee
+    </button>
+  </div>
+
+  <div class="overflow-x-auto shadow-md rounded-lg">
+    <table class="table-auto w-full mt-4 border border-gray-300">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Emp Id</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Name</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Email</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Phone</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Department</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Status</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Attendance</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Leave Requests</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Performance</th>
+          <th class="px-4 py-2 text-sm font-medium text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees" class="hover:bg-gray-50">
+          <td class="border px-4 py-2">{{ employee.empId }}</td>
+          <td class="border px-4 py-2">{{ employee.name }}</td>
+          <td class="border px-4 py-2">{{ employee.email }}</td>
+          <td class="border px-4 py-2">{{ employee.phone }}</td>
+          <td class="border px-4 py-2">{{ employee.department.name }}</td>
+          <td class="border px-4 py-2">{{ employee.status }}</td>
+          <td (click)="openMarkAttendance(employee.empId)" 
+            class="border px-4 py-2 text-center text-blue-500 cursor-pointer hover:underline">
+            View Attendance
+          </td>
+          <td (click)="openLeaveRequestsModel(employee.empId)" 
+            class="border px-4 py-2 text-center text-blue-500 cursor-pointer hover:underline">
+            Requests
+          </td>
+          <td  class="border px-4 py-2 text-center cursor-pointer text-blue-500">
+            <a href="/admin/employees/performance/{{employee.empId}}" (click)="openPerformanceModel(employee.empId)" class="hover:underline">
+              Add performance
+            </a>
+          </td>
+          <td class="border px-4 py-2 flex justify-center gap-4">
+            <button (click)="editEmployee(employee.empId)" class="text-blue-500">
+              <i class="fa fa-edit fa-lg"></i>
+            </button>
+            <button (click)="deleteEmployee(employee.empId)" class="text-red-500">
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="isAttendanceModalOpen" 
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full sm:w-3/4 lg:w-2/3 max-h-[80%] overflow-y-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Attendance Record</h3>
+      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
+        Download
+      </button>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full border">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2">Emp Name</th>
+            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attendance of employeeAttendance">
+            <td class="border px-4 py-2">{{ attendance.employeeId.name }}</td>
+            <td class="border px-4 py-2">{{ attendance.date }}</td>
+            <td class="border px-4 py-2">{{ attendance.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button (click)="closeMarkAttendanceModel()" 
+      class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">
+      Close
+    </button>
+  </div>
+</div>
+
+<div *ngIf="isLeaveRequessModelOpen" 
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full sm:w-3/4 lg:w-2/3 max-h-[80%] overflow-y-auto">
+    <h3 class="text-xl font-semibold mb-4">Leave Requests</h3>
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full border">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2">Emp Name</th>
+            <th class="px-4 py-2">From</th>
+            <th class="px-4 py-2">To</th>
+            <th class="px-4 py-2">Reason</th>
+            <th class="px-4 py-2">Type</th>
+            <th class="px-4 py-2">Approve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leaves of leavesData">
+            <td class="border px-4 py-2">{{ leaves.employee.name }}</td>
+            <td class="border px-4 py-2">{{ leaves.startDate }}</td>
+            <td class="border px-4 py-2">{{ leaves.endDate }}</td>
+            <td class="border px-4 py-2">{{ leaves.reason }}</td>
+            <td class="border px-4 py-2">{{ leaves.leaveType }}</td>
+            <td class="border px-4 py-2 text-center" (click)="approveLeave(leaves.leaveId)">
+              <input type="checkbox" [(ngModel)]="leaves.approved">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button (click)="closeLeaveRequestsModel()" 
+      class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">
+      Close
+    </button>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="p-6 bg-white rounded shadow">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold text-gray-700">Holidays List</h2>
+    <button (click)="navigateToForm()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+      + Add Holiday
+    </button>
+  </div>
+
+  <table class="w-full text-left border-collapse rounded overflow-hidden shadow">
+    <thead>
+      <tr class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+        <th class="p-4">Date</th>
+        <th class="p-4">Description</th>
+        <th class="p-4">Type</th>
+        <th class="p-4">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let holiday of holidays" class="odd:bg-gray-100 even:bg-white hover:bg-gray-50 transition">
+        <td class="p-4 border-b">{{ holiday.date | date: 'mediumDate' }}</td>
+        <td class="p-4 border-b">{{ holiday.description }}</td>
+        <td class="p-4 border-b">{{ holiday.type }}</td>
+        <td class="p-4 border-b space-x-4">
+          <button (click)="navigateToEditForm(holiday.holidayId)" class="text-blue-500 hover:text-blue-600">
+            <i class="fa fa-edit fa-lg"></i>
+          </button>
+          <button (click)="deleteHoliday(holiday.holidayId)" class="text-red-500 hover:text-red-600">
+            <i class="fa fa-trash fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

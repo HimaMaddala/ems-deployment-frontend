@@ -1,0 +1,38 @@
+<div class="container mx-auto bg-white rounded-lg shadow-md p-6">
+  <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">Departments</h1>
+    <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md transition"
+      (click)="openDepartmentForm()">
+      + Add Department
+    </button>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="table-auto w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-100 border-b">
+          <th class="px-6 py-4 text-gray-600 font-medium">Name</th>
+          <th class="px-6 py-4 text-gray-600 font-medium">Description</th>
+          <th class="px-6 py-4 text-gray-600 font-medium">Created Date</th>
+          <th class="px-6 py-4 text-gray-600 font-medium text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of departments" class="border-b hover:bg-gray-50 transition">
+          <td class="px-6 py-4 text-gray-800">{{ department.name }}</td>
+          <td class="px-6 py-4 text-gray-800">{{ department.description }}</td>
+          <td class="px-6 py-4 text-gray-800">
+            {{ department.createdDate | date: 'longDate' }}
+          </td>
+          <td class="px-6 py-4 text-center flex justify-center space-x-4">
+            <button (click)="editDepartment(department.departmentId)" class="text-blue-500 hover:text-blue-600">
+              <i class="fa fa-edit fa-lg"></i>
+            </button>
+            <button (click)="deleteDepartment(department.departmentId)" class="text-red-500 hover:text-red-600">
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

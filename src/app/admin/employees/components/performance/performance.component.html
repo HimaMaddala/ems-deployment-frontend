@@ -1,0 +1,112 @@
+<div class="p-6 space-y-6">
+  <div class="bg-gray-100 p-4 rounded-md shadow-md">
+    <h2 class="text-xl font-bold mb-4 text-gray-700">Add Performance</h2>
+    <form class="space-y-4" (submit)="addPerformance()">
+      <div class="flex flex-col">
+        <label for="employeeId" class="font-medium text-gray-600">Employee ID</label>
+        <select 
+          [(ngModel)]="performance.employee" 
+          name="employeeId" 
+          id="employeeId" 
+          class="p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+          required
+        >
+          <option *ngFor="let employee of employees" [value]="employee.empId">
+            {{ employee.name }}
+          </option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label for="evaluationPeriod" class="font-medium text-gray-600">Evaluation Period</label>
+        <select
+          [(ngModel)]="performance.evaluationPeriod"
+          name="evaluationPeriod"
+          id="evaluationPeriod"
+          class="p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+          required
+        >
+          <option *ngFor="let period of evaluationPeriods" [value]="period">
+            {{ period }}
+          </option>
+        </select>
+      </div>      
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Rating</label>
+        <input 
+          [(ngModel)]="performance.rating"
+          name="performance.rating"
+          type="number"
+          max="10"
+          min="1"
+          class="p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+          required
+        />
+      </div>
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Remarks</label>
+        <textarea 
+          [(ngModel)]="performance.remarks" 
+          name="remarks" 
+          class="p-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        ></textarea>
+      </div>
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Evaluator</label>
+        <input 
+          [(ngModel)]="performance.evaluator" 
+          name="performance.evaluator" 
+          class="p-2 border rounded-md focus:ring-2 focus:ring-blue-300" 
+          required 
+        />
+      </div>
+      <button 
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <div class="bg-gray-100 p-4 rounded-md shadow-md">
+    <h2 class="text-xl font-bold mb-4 text-gray-700">Performance Records</h2>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+      <input 
+        [(ngModel)]="employeeId" 
+        placeholder="Search by Employee ID" 
+        class="p-2 border rounded-md focus:ring-2 focus:ring-green-300 flex-1" 
+      />
+      <button 
+        (click)="fetchPerformanceByEmployee()" 
+        class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+      >
+        Search
+      </button>
+    </div>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full border-collapse border border-gray-300 text-sm">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border border-gray-300 p-2 text-left">Employee ID</th>
+            <th class="border border-gray-300 p-2 text-left">Evaluation Period</th>
+            <th class="border border-gray-300 p-2 text-left">Rating</th>
+            <th class="border border-gray-300 p-2 text-left">Remarks</th>
+            <th class="border border-gray-300 p-2 text-left">Evaluator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let performance of performances" 
+            class="odd:bg-white even:bg-gray-50 hover:bg-gray-100"
+          >
+            <td class="border border-gray-300 p-2">{{ performance.employee.name }}</td>
+            <td class="border border-gray-300 p-2">{{ performance.evaluationPeriod }}</td>
+            <td class="border border-gray-300 p-2">{{ performance.rating }}</td>
+            <td class="border border-gray-300 p-2">{{ performance.remarks }}</td>
+            <td class="border border-gray-300 p-2">{{ performance.evaluator }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

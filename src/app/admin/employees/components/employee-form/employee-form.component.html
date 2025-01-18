@@ -1,0 +1,81 @@
+<div class="px-4 py-8 w-full max-w-4xl mx-auto">
+    <h3 class="text-3xl font-semibold text-center text-gray-800 mb-8">
+      {{ isEdit ? "Edit" : "Create" }} Employee
+    </h3>
+    <form (ngSubmit)="onSubmit()" autocomplete="off" class="p-6 bg-white rounded-lg shadow-md w-full">
+      <div class="mb-6">
+        <label for="employeeName" class="block text-lg font-medium text-gray-700 mb-2">Employee Name</label>
+        <input type="text" id="employeeName"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.name" name="employeeName" placeholder="Enter employee name">
+      </div>
+      <div class="mb-6">
+        <label for="employeeEmail" class="block text-lg font-medium text-gray-700 mb-2">Employee Email</label>
+        <input type="email" id="employeeEmail"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.email" name="employeeEmail" placeholder="Enter employee email">
+      </div>
+      <div class="mb-6">
+        <label for="employeePhone" class="block text-lg font-medium text-gray-700 mb-2">Employee Phone</label>
+        <input type="tel" id="employeePhone"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.phone" name="employeePhone" placeholder="Enter employee phone">
+      </div>
+      <div class="mb-6">
+        <label for="employeeDateofBirth" class="block text-lg font-medium text-gray-700 mb-2">Date of Birth</label>
+        <input type="date" id="employeeDateofBirth"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.dateOfBirth" name="employeeDateofBirth">
+      </div>
+      <div class="mb-6">
+        <label for="employeeEmpId" class="block text-lg font-medium text-gray-700 mb-2">Employee ID</label>
+        <div class="flex items-center gap-2">
+          <input type="text" id="employeeEmpId"
+            class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            [(ngModel)]="employee.empId" name="employeeEmpId" placeholder="Click generate">
+          <button type="button"
+            (click)="generateId()"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500">
+            Generate
+          </button>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="employeeJobTitle" class="block text-lg font-medium text-gray-700 mb-2">Job Title</label>
+        <input type="text" id="employeeJobTitle"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.jobTitle" name="employeeJobTitle" placeholder="Enter job title">
+      </div>
+      <div class="mb-6">
+        <label for="department" class="block text-lg font-medium text-gray-700 mb-2">Department</label>
+        <select id="department"
+          class="form-select w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="departmentId" name="department">
+          <option value="" disabled selected>Select a Department</option>
+          <option *ngFor="let department of departments" [value]="department.departmentId">
+            {{ department.name }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-6">
+        <label for="employeeDateOfJoining" class="block text-lg font-medium text-gray-700 mb-2">Date of Joining</label>
+        <input type="date" id="employeeDateOfJoining"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.dateOfJoining" name="employeeDateOfJoining">
+      </div>
+      <div class="mb-6">
+        <label for="employeeStatus" class="block text-lg font-medium text-gray-700 mb-2">Employee Status</label>
+        <input type="text" id="employeeStatus"
+          class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          [(ngModel)]="employee.status" name="employeeStatus" placeholder="Enter status">
+      </div>
+      <div class="text-center">
+        <button
+          class="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+          type="submit">
+          {{ isEdit ? "Edit" : "Create" }}
+        </button>
+      </div>
+    </form>
+  </div>
+  
